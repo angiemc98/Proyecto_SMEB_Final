@@ -11,9 +11,7 @@ export default function Header() {
                 <div className="w-6 h-6 bg-red-500 rounded-full text-xs flex items-center justify-center font-bold">3</div>
                 <div className="flex items-center bg-white text-[#1565c0] px-3 py-1 rounded-lg shadow-sm">TC</div>
                     <span className="text-sm font-medium">Carlos Perez</span>
-                    <Button variant="secondary" className="text-primary">
-                    Cerrar
-                    </Button>
+                    <Button onClick={() => window.open("auth/login", "_self")} className="bg-white text-[#0d47a1] px-3 py-1 rounded-lg shadow-sm hover:bg-red">Cerrar</Button>
             </div>
         </header>
     );

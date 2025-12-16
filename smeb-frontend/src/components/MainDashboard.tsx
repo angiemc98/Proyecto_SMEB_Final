@@ -9,9 +9,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 
 export default function MainDashboard() {
     return (
-        <div className="flex flex-col gap-6 p-6 max-w7xl mx-auto">
+        <div className="p-6 space-y-6 max-w-7xl mx-auto bg-white rounded-xl shadow-md">
             {/* Titulo */}
-            <div className="col-span-12 bg-white rounded-xl shadow-md p-4 h-fit mt-(-23px)">
+            <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -75,7 +75,7 @@ export default function MainDashboard() {
                     </Card>
                 </section>
                 {/* Actividad reciente y Próximos mantenimientos */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mt-6">
                     {/* Actividad reciente */}
                     <Card>
                     <CardHeader>
