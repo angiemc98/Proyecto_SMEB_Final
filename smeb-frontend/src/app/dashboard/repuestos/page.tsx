@@ -1,8 +1,7 @@
 'use client'
-import { Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckCircle, AlertTriangle, XCircle } from "lucide-react"
+import { Card } from "@/components/ui/card"
+import { Package, PackageCheck, PackageOpen, PackageX} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
@@ -12,12 +11,19 @@ import NuevoRepuesto from "@/components/forms/NuevoRepuesto";
 
 export default function InventarioPage() {
 
- const filtros = [
-        { name: "Todos", active: true },
-        { name: "Filtros", active: false },
-        { name: "Ventiladores", active: false },
-        { name: "Monitores", active: false },
-        { name: "Desfibriladores", active: false },
+    const statsCards = [
+        { title: "Total de Repuestos", value: "124", subtitle: "+5% este mes", subtitleColor: "text-green-600", icon: Package, iconBg: "bg-blue-600", borderColor: "border-l-4 border-blue-600" },
+        { title: "Repuestos Disponibles", value: "115", subtitle: "+7% este mes", subtitleColor: "text-green-600", icon: PackageCheck, iconBg: "bg-green-600", borderColor: "border-l-4 border-green-600" },
+        { title: "Repuestos en Proceso de Compra", value: "3", subtitle: "Esta semana", subtitleColor: "text-orange-600", icon: PackageOpen, iconBg: "bg-yellow-500", borderColor: "border-l-4 border-yellow-500" }, 
+        { title: "Repuestos No Disponibles", value: "6", subtitle: "Requieren revisión", subtitleColor: "text-red-600", icon: PackageX, iconBg: "bg-red-600", borderColor: "border-l-4 border-red-600" },
+    ]
+
+    const filtros = [
+            { name: "Todos", active: true },
+            { name: "Filtros", active: false },
+            { name: "Ventiladores", active: false },
+            { name: "Monitores", active: false },
+            { name: "Desfibriladores", active: false },
     ]
 
     const itemsStockBajo = [
@@ -43,12 +49,15 @@ export default function InventarioPage() {
 
     return (
         <div className="p-6 bg-white min-h-screen border rounded-xl shadow-md">
+            <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
             {/* Header */}
-            <div className="mb-6 grid grid-cols-2 gap-6">    
-                <h1 className="text-2xl font-bold text-gray-900 col-span-1 md:col-span-1 lg:col-span-1">
-                    Inventario
-                </h1>
-
+            <div className="mb-6 grid grid-cols-2 gap-6"> 
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-900 col-span-1 md:col-span-1 lg:col-span-1">
+                        Inventario
+                    </h1>
+                    <p className="text-gray-500 mb-4">Inventario de repuestos y consumibles</p>
+                </div>
                 <div className="flex justify-end">
                     <Sheet>
                             <SheetTrigger asChild>
@@ -67,48 +76,29 @@ export default function InventarioPage() {
                     </Sheet>
                 </div>
             </div>
-            <section className="mt-6 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
-            <Card className="border-l-4 border-blue-600 shadow-sm">
-                <CardHeader className="flex justify-between items-center">
-                    <CardTitle className="text-sm text-gray-600">Total</CardTitle>
-                    <Package className="w-5 h-5 text-blue-600" />
-                </CardHeader>
-                <CardContent>
-                    <p className="text-3xl font-bold">6</p>
-                </CardContent>
-            </Card>
-            <Card className="border-l-4 border-green-600 shadow-sm">
-            <CardHeader className="flex justify-between items-center">
-                <CardTitle className="text-sm text-gray-600">Disponibles</CardTitle>
-                <CheckCircle className="w-5 h-5 text-green-600" />
-            </CardHeader>
-            <CardContent>
-                <p className="text-3xl font-bold">2</p>
-            </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-yellow-500 shadow-sm">
-            <CardHeader className="flex justify-between items-center">
-                <CardTitle className="text-sm text-gray-600">Ocupados</CardTitle>
-                <AlertTriangle className="w-5 h-5 text-yellow-500" />
-            </CardHeader>
-            <CardContent>
-                <p className="text-3xl font-bold">3</p>
-            </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-red-600 shadow-sm">
-            <CardHeader className="flex justify-between items-center">
-                <CardTitle className="text-sm text-gray-600">Ausentes</CardTitle>
-                <XCircle className="w-5 h-5 text-red-600" />
-            </CardHeader>
-            <CardContent>
-                <p className="text-3xl font-bold">1</p>
-            </CardContent>
-            </Card>  
-            </section>
+        {/* Stats Cards */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+                {statsCards.map((stat, index) => (
+                    <Card key={index} className={`${stat.borderColor} bg-white shadow-sm hover:shadow-md transition-shadow`}>
+                        <div className="px-5 py-4 flex items-center justify-between">
+                            <div className="flex-grow">
+                                <span className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2">
+                                    {stat.title}
+                                </span>
+                                <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                                <p className={`text-xs font-medium ${stat.subtitleColor}`}>
+                                    {stat.subtitle}
+                                </p>
+                            </div>
+                            <div className={`${stat.iconBg} rounded-lg p-2.5 ml-4`}>
+                                <stat.icon className="w-5 h-5 text-white" />
+                            </div>
+                        </div>
+                    </Card>
+                ))}
+            </div>
         {/* Search Bar */}
-            <div className="mt-6 mb-4">
+            <div className="mt-8 mb-4">
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input 
@@ -181,6 +171,7 @@ export default function InventarioPage() {
                     ))}
                 </div>
             </div> 
+        </div>
         </div>
     )
 }

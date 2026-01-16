@@ -15,59 +15,47 @@ import { Package, CheckCircle, AlertTriangle, XCircle } from "lucide-react"
 import NuevoEquipoForm from "@/components/forms/NuevoEquipoForm";
 
 export default function EquiposPage() {
+
+  const statsCards = [
+    { title: "Total de Equipos", value: "124", subtitle: "+5% este mes", subtitleColor: "text-green-600", icon: Package, iconBg: "bg-blue-600", borderColor: "border-l-4 border-blue-600" },
+    { title: "Equipos en Línea", value: "115", subtitle: "+7% este mes", subtitleColor: "text-green-600", icon: CheckCircle, iconBg: "bg-green-600", borderColor: "border-l-4 border-green-600" },
+    { title: "Equipos en Mantenimiento", value: "3", subtitle: "Esta semana", subtitleColor: "text-orange-600", icon: AlertTriangle, iconBg: "bg-yellow-500", borderColor: "border-l-4 border-yellow-500" },
+    { title: "Equipos Inactivos", value: "6", subtitle: "Requieren revisión", subtitleColor: "text-red-600", icon: XCircle, iconBg: "bg-red-600", borderColor: "border-l-4 border-red-600" },
+  ]
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto bg-white rounded-xl shadow-md">
       {/* Título */}
+      <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
       <div>
         <h1 className="text-2xl font-semibold">Gestión de Equipos</h1>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm mb-6">
           Control y administración de equipos biomédicos registrados en la institución.
         </p>
       </div>
 
       {/* Cards resumen */}
-     <section className="mt-6 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
-        <Card className="border-l-4 border-blue-600 shadow-sm">
-            <CardHeader className="flex justify-between items-center">
-                <CardTitle className="text-sm text-gray-600">Total equipos</CardTitle>
-                <Package className="w-5 h-5 text-blue-600" />
-            </CardHeader>
-            <CardContent>
-                <p className="text-3xl font-bold">6</p>
-            </CardContent>
-        </Card>
-        <Card className="border-l-4 border-green-600 shadow-sm">
-        <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Disponibles</CardTitle>
-            <CheckCircle className="w-5 h-5 text-green-600" />
-        </CardHeader>
-        <CardContent>
-            <p className="text-3xl font-bold">2</p>
-        </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-yellow-500 shadow-sm">
-        <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Mantenimeinto</CardTitle>
-            <AlertTriangle className="w-5 h-5 text-yellow-500" />
-        </CardHeader>
-        <CardContent>
-            <p className="text-3xl font-bold">3</p>
-        </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-red-600 shadow-sm">
-        <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Fuera de Servicio</CardTitle>
-            <XCircle className="w-5 h-5 text-red-600" />
-        </CardHeader>
-        <CardContent>
-            <p className="text-3xl font-bold">1</p>
-        </CardContent>
-        </Card>  
-      </section>
+      <div className="grid grid-cols-2 gap-4 mb-6 ">
+        {statsCards.map((stat, index) => (
+          <Card key={index} className={`${stat.borderColor} bg-white shadow-sm hover:shadow-md transition-shadow`}>
+            <div className="px-5 py-4 flex items-center justify-between">
+              <div className="flex-grow">
+                <span className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2">
+                  {stat.title}
+                </span>
+                <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                <p className={`text-xs font-medium ${stat.subtitleColor}`}>
+                  {stat.subtitle}
+                </p>
+              </div>
+              <div className={`${stat.iconBg} rounded-lg p-2.5 ml-4`}>
+                <stat.icon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
       {/* Acciones */}
-<div className="flex justify-between items-center gap-4">
+<div className="flex justify-between items-center gap-4 mb-6">
 
   <Sheet>
     <SheetTrigger asChild>
@@ -141,5 +129,7 @@ export default function EquiposPage() {
         </CardContent>
       </Card>
     </div>
+    </div>
   )
+
 }

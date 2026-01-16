@@ -1,8 +1,8 @@
 // app/trabajadores/page.tsx
 "use client"
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { CheckCircle, AlertTriangle, XCircle, Package } from "lucide-react"
+import { Card} from "@/components/ui/card"
+import { Users, UserCheck, Briefcase, UserX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import NuevoTrabajador from "@/components/forms/NuevoTrabajador"
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
@@ -10,6 +10,12 @@ import { User, Check, MoreVertical } from "lucide-react"
 
 export default function TrabajadoresPage() {
 
+  const statsCards = [
+    { title: "Total de Trabajadores", value: "124", subtitle: "+5% este mes", subtitleColor: "text-green-600", icon: Users, iconBg: "bg-blue-600", borderColor: "border-l-4 border-blue-600" },
+    { title: "Trabajadores Activos", value: "115", subtitle: "+7% este mes", subtitleColor: "text-green-600", icon: UserCheck, iconBg: "bg-green-600", borderColor: "border-l-4 border-green-600" },
+    { title: "Trabajadores Inactivos", value: "3", subtitle: "Esta semana", subtitleColor: "text-orange-600", icon: Briefcase, iconBg: "bg-yellow-500", borderColor: "border-l-4 border-yellow-500" },
+    { title: "Trabajadores Ausentes", value: "6", subtitle: "Requieren revisión", subtitleColor: "text-red-600", icon: UserX, iconBg: "bg-red-600", borderColor: "border-l-4 border-red-600" },
+  ]
   const trabajadores = [
     { nombre: "Juan Martínez", initials: "JM", avatarColor: "bg-green-600", rol: "Mantenimiento en Emergencias", estado: "Disponible", statusColor: "text-green-600", statusBg: "bg-green-100" },
     { nombre: "Ana Rojas", initials: "AR", avatarColor: "bg-red-600", rol: "En taller con Desfibrilador", estado: "Mantenimiento DEF-032", statusColor: "text-red-600", statusBg: "bg-red-100" },
@@ -26,6 +32,7 @@ export default function TrabajadoresPage() {
   return (
     <div className="p-6 bg-white rounded-xl shadow-md">
 
+      <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
       <h1 className="text-2xl font-semibold mb-2">Gestión de Trabajadores</h1>
       <p className="text-gray-500 mb-4">Listado del personal técnico biomédico</p>
 
@@ -48,47 +55,26 @@ export default function TrabajadoresPage() {
       </div>
 
       {/* CARDS DE ESTADO */}
-      <section className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-6">
-        <Card className="border-l-4 border-blue-600 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Total</CardTitle>
-            <Package className="w-5 h-5 text-blue-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">6</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-green-600 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Disponibles</CardTitle>
-            <CheckCircle className="w-5 h-5 text-green-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">2</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-yellow-500 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Ocupados</CardTitle>
-            <AlertTriangle className="w-5 h-5 text-yellow-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">3</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-red-600 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Ausentes</CardTitle>
-            <XCircle className="w-5 h-5 text-red-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">1</p>
-          </CardContent>
-        </Card>
-      </section>
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {statsCards.map((stat, index) => (
+          <Card key={index} className={`${stat.borderColor} bg-white shadow-sm hover:shadow-md transition-shadow`}>
+            <div className="px-5 py-4 flex items-center justify-between">
+              <div className="flex-grow">
+                <span className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2">
+                  {stat.title}
+                </span>
+                <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                <p className={`text-xs font-medium ${stat.subtitleColor}`}>
+                  {stat.subtitle}
+                </p>
+              </div>
+              <div className={`${stat.iconBg} rounded-lg p-2.5 ml-4`}>
+                <stat.icon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
 
       {/* LISTADO DE TRABAJADORES */}
       <h2 className="text-xs font-semibold text-gray-700 mb-4 mt-8">TÉCNICOS ACTIVOS</h2>
@@ -129,6 +115,7 @@ export default function TrabajadoresPage() {
         ))}
       </div>
 
+    </div>
     </div>
   )
 }

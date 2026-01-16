@@ -8,6 +8,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 
 
 export default function MainDashboard() {
+
+    const statsCards = [
+        { title: "Equipos Activos", value: "124", borderColor: "border-l-4 border-blue-600", icons: Package, iconBg: "bg-blue-600", subtitle: "+5% este mes", subTitleColor: "text-blue-600" },
+        { title: "Mantenimientos OK", value: "98", borderColor: "border-l-4 border-green-600", icons: CheckCircle, iconBg: "bg-green-600", subtitle: "+12% este mes", subTitleColor: "text-green-600" },
+        { title: "Pendientes", value: "8", borderColor: "border-l-4 border-yellow-500", icons: AlertTriangle, iconBg: "bg-yellow-500", subtitle: "-3% esta semana", subTitleColor: "text-yellow-500" },
+        { title: "Fuera de Servicio", value: "3", borderColor: "border-l-4 border-red-600", icons: XCircle, iconBg: "bg-red-600", subtitle: "Sin cambios", subTitleColor: "text-red-600" },
+    ]
     return (
         <div className="p-6 space-y-6 max-w-7xl mx-auto bg-white rounded-xl shadow-md">
             {/* Titulo */}
@@ -30,50 +37,26 @@ export default function MainDashboard() {
                 </div>
         </div>
                 {/*Tarjetas */}
-                <section className="mt-6 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
-                    <Card className="border-l-4 border-blue-600 shadow-sm">
-                        <CardHeader className="flex justify-between items-center">
-                            <CardTitle className="text-sm text-gray-600">Equipos Activos</CardTitle>
-                            <Package className="w-5 h-5 text-blue-600" />
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-3xl font-bold">124</p>
-                            <p className="text-sm text-green-600">+5% este mes</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="border-l-4 border-green-600 shadow-sm">
-                    <CardHeader className="flex justify-between items-center">
-                        <CardTitle className="text-sm text-gray-600">Mantenimientos OK</CardTitle>
-                        <CheckCircle className="w-5 h-5 text-green-600" />
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-3xl font-bold">98</p>
-                        <p className="text-green-600 text-sm">+12% este mes</p>
-                    </CardContent>
-                    </Card>
-
-                    <Card className="border-l-4 border-yellow-500 shadow-sm">
-                    <CardHeader className="flex justify-between items-center">
-                        <CardTitle className="text-sm text-gray-600">Pendientes</CardTitle>
-                        <AlertTriangle className="w-5 h-5 text-yellow-500" />
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-3xl font-bold">8</p>
-                        <p className="text-red-600 text-sm">-3% esta semana</p>
-                    </CardContent>
-                    </Card>
-
-                    <Card className="border-l-4 border-red-600 shadow-sm">
-                    <CardHeader className="flex justify-between items-center">
-                        <CardTitle className="text-sm text-gray-600">Fuera de Servicio</CardTitle>
-                        <XCircle className="w-5 h-5 text-red-600" />
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-3xl font-bold">3</p>
-                        <p className="text-gray-600 text-sm">Sin cambios</p>
-                    </CardContent>
-                    </Card>
-                </section>
+                <div className="grid grid-cols-2 md:grid-cols-2 gap-4 my-6">
+                    {statsCards.map((stat, index) => (
+                        <Card key={index} className={`${stat.borderColor} bg-white shadow-sm hover:shadow-md transition-shadow`}>
+                            <div className="px-5 py-4 flex items-center justify-between">
+                                <div className="flex-grow">
+                                    <span className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2">
+                                        {stat.title}
+                                    </span>
+                                    <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                                    <p className={`text-xs font-medium ${stat.subTitleColor}`}>
+                                        {stat.subtitle}
+                                    </p>
+                                </div>
+                                <div className={`${stat.iconBg} rounded-lg p-2.5 ml-4`}>
+                                    <stat.icons className="w-5 h-5 text-white" />
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
                 {/* Actividad reciente y Próximos mantenimientos */}
                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mt-6">
                     {/* Actividad reciente */}

@@ -90,6 +90,7 @@ export default function MonitoreoGasesPage() {
 
     return (
         <div className="p-6 bg-white min-h-screen border rounded-xl shadow-md">
+            <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
             {/* Header */}
             <div className="mb-6 flex items-center justify-between">
                 <div>
@@ -185,6 +186,7 @@ export default function MonitoreoGasesPage() {
                     ))}
                 </div>
             </div>
+        </div>
         </div>
     )
 }

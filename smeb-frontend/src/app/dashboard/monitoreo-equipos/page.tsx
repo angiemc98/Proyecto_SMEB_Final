@@ -31,7 +31,7 @@ export default function MonitoreoEquiposPage() {
 
     return (
         <div className="p-6 bg-white min-h-screen">
-
+            <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
             {/* Header */}
             <div className="mb-6 flex items-center justify-between">
                 <div>
@@ -69,7 +69,7 @@ export default function MonitoreoEquiposPage() {
                             <NuevoTracker />
                         </SheetContent>
                     </Sheet>
-                    </div>
+                </div>
 
             {/* Stats Cards */}
             <div className="grid grid-cols-2 gap-4 mb-6">
@@ -149,6 +149,7 @@ export default function MonitoreoEquiposPage() {
                 </div>
             </div>
 
+        </div>
         </div>
     )
 }

@@ -12,68 +12,29 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import MantenimientoForm from "@/components/forms/NuevoMantenimiento"
-import { Wrench, CheckCircle, AlertTriangle, LineChart } from "lucide-react"
+import { Wrench, Hourglass, AlertTriangle, ListTodo } from "lucide-react"
 import { Table, TableHead, TableHeader, TableRow, TableBody, TableCell } from "@/components/ui/table"
 
 export default function MantenimientosPage() {
-  return (
-    <div className="p-6 max-w-7xl mx-auto bg-white rounded-xl shadow-md space-y-6">
 
+  const statsCards = [
+    { title: "Total de Mantenimientos", value: "124", subtitle: "+5% este mes", subtitleColor: "text-green-600", icon: Wrench, iconBg: "bg-blue-600", borderColor: "border-l-4 border-blue-600" },
+    { title: "Mantenimientos OK", value: "115", subtitle: "+7% este mes", subtitleColor: "text-green-600", icon: ListTodo, iconBg: "bg-green-600", borderColor: "border-l-4 border-green-600" },
+    { title: "Mantenimientos Pendientes", value: "3", subtitle: "Esta semana", subtitleColor: "text-orange-600", icon: Hourglass, iconBg: "bg-yellow-500", borderColor: "border-l-4 border-yellow-500" },
+    { title: "Mantenimientos No OK", value: "6", subtitle: "Requieren revisión", subtitleColor: "text-red-600", icon: AlertTriangle, iconBg: "bg-red-600", borderColor: "border-l-4 border-red-600" },
+  ]
+  return (
+    <div className="p-6 space-y-6 max-w-7xl mx-auto bg-white rounded-xl shadow-md">
+      <div className="col-span-12 bg-white rounded-xl p-4 h-fit mt-(-23px)">
       {/* Título */}
       <div>
         <h1 className="text-2xl font-semibold">Mantenimientos</h1>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm mb-6">
           Gestión de mantenimientos preventivos, correctivos y predictivos.
         </p>
       </div>
-
-      {/* Cards */}
-      <section className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4">
-        
-        <Card className="border-l-4 border-blue-600 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Total</CardTitle>
-            <Wrench className="w-5 h-5 text-blue-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">12</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-green-600 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Preventivos</CardTitle>
-            <CheckCircle className="w-5 h-5 text-green-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">6</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-yellow-500 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Correctivos</CardTitle>
-            <AlertTriangle className="w-5 h-5 text-yellow-500" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">4</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-red-600 shadow-sm">
-          <CardHeader className="flex justify-between items-center">
-            <CardTitle className="text-sm text-gray-600">Predictivos</CardTitle>
-            <LineChart className="w-5 h-5 text-red-600" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">2</p>
-          </CardContent>
-        </Card>
-
-      </section>
-
-      {/* Acciones */}
-      <div className="flex justify-between items-center mt-6">
+       {/* Acciones */}
+      <div className="flex justify-between items-center mt-6 mb-6">
 
         {/* Drawer */}
         <Sheet>
@@ -83,7 +44,10 @@ export default function MantenimientosPage() {
             </Button>
           </SheetTrigger>
 
-          <SheetContent side="right" className="w-[500px] overflow-auto">
+          <SheetContent
+            side="right"
+            className="w-[400px] sm:w-[500px] max-w-full overflow-auto"
+          >
             <SheetHeader>
               <SheetTitle>Registrar mantenimiento</SheetTitle>
             </SheetHeader>
@@ -95,6 +59,28 @@ export default function MantenimientosPage() {
         <Input placeholder="Buscar..." className="w-64" />
       </div>
 
+      {/* Cards */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {statsCards.map((stat, index) => (
+          <Card key={index} className={`${stat.borderColor} bg-white shadow-sm hover:shadow-md transition-shadow`}>
+            <div className="px-5 py-4 flex items-center justify-between">
+              <div className="flex-grow">
+                <span className="text-xs font-medium text-gray-600 uppercase tracking-wide block mb-2">
+                  {stat.title}
+                </span>
+                <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                <p className={`text-xs font-medium ${stat.subtitleColor}`}>
+                  {stat.subtitle}
+                </p>
+              </div>
+              <div className={`${stat.iconBg} rounded-lg p-2.5 ml-4`}>
+                <stat.icon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    
       {/* Tabla */}
       <Card className="border shadow-sm border-gray-200">
         <CardHeader>
@@ -106,10 +92,10 @@ export default function MantenimientosPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Equipo</TableHead>
-                <TableHead>Tipo de Mantenimiento</TableHead>
+                <TableHead>Mantenimiento</TableHead>
                 <TableHead>Fecha Programada</TableHead>
                 <TableHead>Estado</TableHead>
-                <TableHead>Técnico Responsable</TableHead>
+                <TableHead>Responsable</TableHead>
                 <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
@@ -152,6 +138,7 @@ export default function MantenimientosPage() {
           </Table>
         </CardContent>
       </Card>
+    </div>
     </div>
   )
 }
